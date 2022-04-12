@@ -32,15 +32,22 @@ class MainActivity : AppCompatActivity(){
     private fun initViews() {
         binding.buttonAccess.setOnClickListener { requestPermissions() }
     }
-    private fun continueActions() {
-        Toast.makeText(
-            this,
-            "continueActions",
-            Toast.LENGTH_SHORT
-        ).show()
-    }
     private fun requestPermissions() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            isLocationPermissionGranted=ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+            isCameraPermissionGranted=ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.CAMERA
+            ) == PackageManager.PERMISSION_GRANTED
+            isStoragePermissionGranted=ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            ) == PackageManager.PERMISSION_GRANTED
+
+
             when {
                 //if user already granted the permission
                 ContextCompat.checkSelfPermission(
@@ -52,7 +59,6 @@ class MainActivity : AppCompatActivity(){
                         "you have already granted this permission",
                         Toast.LENGTH_SHORT
                     ).show()
-                    continueActions()
                 }
                 //if user already denied the permission once
                 ActivityCompat.shouldShowRequestPermissionRationale(
