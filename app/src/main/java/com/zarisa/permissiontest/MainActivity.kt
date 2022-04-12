@@ -65,7 +65,13 @@ class MainActivity : AppCompatActivity(){
                 ).show()
             }
     }
-
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            val imageBitmap = data?.extras?.get("data") as Bitmap
+            binding.imageView.setImageBitmap(imageBitmap)
+        }
+    }
     private fun continueActions() {
         Toast.makeText(
             this,
