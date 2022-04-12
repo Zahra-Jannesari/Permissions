@@ -2,10 +2,14 @@ package com.zarisa.permissiontest
 
 
 import android.Manifest
+import android.content.ActivityNotFoundException
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
@@ -15,6 +19,7 @@ import com.zarisa.permissiontest.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity(){
+    val REQUEST_IMAGE_CAPTURE = 1
     lateinit var binding: ActivityMainBinding
     private val requestPermissionLauncher =
         registerForActivityResult(
@@ -45,7 +50,22 @@ class MainActivity : AppCompatActivity(){
 
     private fun initViews() {
         binding.buttonCamera.setOnClickListener { requestPermissions() }
+        binding.buttonUseSystemCamera.setOnClickListener { intentToCamera() }
     }
+
+    private fun intentToCamera() {
+            val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            try {
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
+            } catch (e: ActivityNotFoundException) {
+                Toast.makeText(
+                    this,
+                    "couldn't load.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+    }
+
     private fun continueActions() {
         Toast.makeText(
             this,
