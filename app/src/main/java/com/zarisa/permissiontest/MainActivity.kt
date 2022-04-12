@@ -18,7 +18,9 @@ import com.zarisa.permissiontest.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity(){
     lateinit var binding: ActivityMainBinding
     private lateinit var requestPermissionLauncher :ActivityResultLauncher<String>
-
+    var isLocationPermissionGranted=false
+    var isCameraPermissionGranted=false
+    var isStoragePermissionGranted=false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
