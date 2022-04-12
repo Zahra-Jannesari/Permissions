@@ -35,9 +35,12 @@ class MainActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissionsRes
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        initViews()
     }
 
-
+    private fun initViews() {
+        binding.buttonCamera.setOnClickListener { requestPermissions() }
+    }
 
 
 }
