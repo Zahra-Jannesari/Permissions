@@ -67,7 +67,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 ActivityCompat.shouldShowRequestPermissionRationale(
                     this,
-                    Manifest.permission.CAMERA
+                    permission
                 ) -> {
                     showRationDialog(permission, name, requestCode)
                 }
