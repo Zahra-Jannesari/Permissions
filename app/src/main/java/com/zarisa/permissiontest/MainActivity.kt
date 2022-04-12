@@ -67,6 +67,19 @@ class MainActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissionsRes
                     ).show()
                     continueActions()
                 }
+                //if user already denied the permission once
+                ActivityCompat.shouldShowRequestPermissionRationale(
+                    this,
+                    Manifest.permission.CAMERA
+                ) -> {
+                    //you can show rational massage in any form you want
+                    showRationDialog()
+//                    Snackbar.make(
+//                        binding.buttonCamera,
+//                        getString(R.string.permission_required),
+//                        Snackbar.LENGTH_LONG
+//                    ).show()
+                }
             }
         }
     }
