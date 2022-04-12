@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity(){
 
     private fun initViews() {
         binding.buttonCamera.setOnClickListener { requestPermissions() }
+        binding.buttonMedia.setOnClickListener { requestPermissions() }
     }
     private fun continueActions() {
         Toast.makeText(
