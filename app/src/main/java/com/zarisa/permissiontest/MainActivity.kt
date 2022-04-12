@@ -17,7 +17,7 @@ import com.zarisa.permissiontest.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(){
     lateinit var binding: ActivityMainBinding
-    private lateinit var requestPermissionLauncher :ActivityResultLauncher<String>
+    private lateinit var requestPermissionLauncher :ActivityResultLauncher<Array<String>>
     var isLocationPermissionGranted=false
     var isCameraPermissionGranted=false
     var isStoragePermissionGranted=false
@@ -57,6 +57,9 @@ class MainActivity : AppCompatActivity(){
             if(!isStoragePermissionGranted)
                 permissionsNeeded.add(Manifest.permission.READ_EXTERNAL_STORAGE)
 
+            if(permissionsNeeded.isNotEmpty()){
+                requestPermissionLauncher.launch(permissionsNeeded.toTypedArray())
+            }
             when {
                 //if user already denied the permission once
                 ActivityCompat.shouldShowRequestPermissionRationale(
