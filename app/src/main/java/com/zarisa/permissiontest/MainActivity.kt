@@ -1,11 +1,15 @@
 package com.zarisa.permissiontest
 
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.zarisa.permissiontest.databinding.ActivityMainBinding
 
 
@@ -48,6 +52,10 @@ class MainActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissionsRes
             Toast.LENGTH_SHORT
         ).show()
     }
+    private fun requestPermissions() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
+        }
+    }
 }
 
