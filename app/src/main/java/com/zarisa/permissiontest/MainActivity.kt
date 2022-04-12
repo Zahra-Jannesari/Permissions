@@ -54,7 +54,20 @@ class MainActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissionsRes
     }
     private fun requestPermissions() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-
+            when {
+                //if user already granted the permission
+                ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.CAMERA
+                ) == PackageManager.PERMISSION_GRANTED -> {
+                    Toast.makeText(
+                        this,
+                        "you have already granted this permission",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    continueActions()
+                }
+            }
         }
     }
 }
