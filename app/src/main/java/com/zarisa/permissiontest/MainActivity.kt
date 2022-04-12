@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity(){
             val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             try {
                 startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
-            } catch (e: ActivityNotFoundException) {
+            } catch (e: Exception) {
                 Toast.makeText(
                     this,
                     "couldn't load.",
