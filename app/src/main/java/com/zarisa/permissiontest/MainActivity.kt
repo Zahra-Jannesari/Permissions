@@ -14,29 +14,10 @@ import androidx.core.content.ContextCompat
 import com.zarisa.permissiontest.databinding.ActivityMainBinding
 
 
-class MainActivity : AppCompatActivity(){
-    val READ_EXTERNAL_STORAGE_RQ=1
-    val USE_CAMERA_RQ=2
+class MainActivity : AppCompatActivity() {
+    val READ_EXTERNAL_STORAGE_RQ = 1
+    val CAMERA_RQ = 2
     lateinit var binding: ActivityMainBinding
-    private val requestPermissionLauncher =
-        registerForActivityResult(
-            ActivityResultContracts.RequestPermission()
-        ) { isGranted: Boolean ->
-            if (isGranted) {
-                Toast.makeText(
-                    this,
-                    "you granted this permission",
-                    Toast.LENGTH_SHORT
-                ).show()
-                continueActions()
-            } else {
-                Toast.makeText(
-                    this,
-                    "you denied this permission",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,9 +27,22 @@ class MainActivity : AppCompatActivity(){
     }
 
     private fun initViews() {
-        binding.buttonCamera.setOnClickListener { requestPermissions() }
-        binding.buttonMedia.setOnClickListener { requestPermissions() }
+        binding.buttonCamera.setOnClickListener {
+            requestPermissions(
+                Manifest.permission.CAMERA,
+                "camera",
+                CAMERA_RQ
+            )
+        }
+        binding.buttonMedia.setOnClickListener {
+            requestPermissions(
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                "media",
+                READ_EXTERNAL_STORAGE_RQ
+            )
+        }
     }
+
     private fun continueActions() {
         Toast.makeText(
             this,
@@ -56,54 +50,77 @@ class MainActivity : AppCompatActivity(){
             Toast.LENGTH_SHORT
         ).show()
     }
-    private fun requestPermissions() {
+
+    private fun requestPermissions(permission: String, name: String, requestCode: Int) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             when {
-                //if user already granted the permission
                 ContextCompat.checkSelfPermission(
                     this,
-                    Manifest.permission.CAMERA
+                    permission
                 ) == PackageManager.PERMISSION_GRANTED -> {
                     Toast.makeText(
                         this,
-                        "you have already granted this permission",
+                        "you have already granted $name permission",
                         Toast.LENGTH_SHORT
                     ).show()
                     continueActions()
                 }
-                //if user already denied the permission once
                 ActivityCompat.shouldShowRequestPermissionRationale(
                     this,
                     Manifest.permission.CAMERA
                 ) -> {
-                    //you can show rational massage in any form you want
-                    showRationDialog()
-//                    Snackbar.make(
-//                        binding.buttonCamera,
-//                        getString(R.string.permission_required),
-//                        Snackbar.LENGTH_LONG
-//                    ).show()
+                    showRationDialog(permission, name, requestCode)
                 }
                 else -> {
-                    requestPermissionLauncher.launch(
-                        Manifest.permission.CAMERA,
-                    )
+                    ActivityCompat.requestPermissions(this, arrayOf(permission), requestCode)
                 }
             }
         }
     }
-    private fun showRationDialog() {
-        val builder= AlertDialog.Builder(this)
+
+    private fun showRationDialog(permission: String, name: String, requestCode: Int) {
+        val builder = AlertDialog.Builder(this)
         builder.apply {
             setMessage(R.string.permission_required)
             setTitle("permission required")
-            setPositiveButton("ok"){dialog,which->
-                requestPermissionLauncher.launch(
-                    Manifest.permission.CAMERA,
+            setPositiveButton("ok") { dialog, which ->
+                ActivityCompat.requestPermissions(
+                    this@MainActivity,
+                    arrayOf(permission),
+                    requestCode
                 )
             }
         }
         builder.create().show()
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        fun innerCheck(name: String) {
+            if (grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(
+                    this,
+                    "you have denied $name permission",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else{
+                Toast.makeText(
+                    this,
+                    "you have granted $name permission",
+                    Toast.LENGTH_SHORT
+                ).show()
+                continueActions()
+            }
+        }
+        when (requestCode) {
+            CAMERA_RQ -> innerCheck("camera")
+            READ_EXTERNAL_STORAGE_RQ -> innerCheck("media")
+        }
+
     }
 }
 
