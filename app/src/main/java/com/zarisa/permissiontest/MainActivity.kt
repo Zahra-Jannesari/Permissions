@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity(){
     }
     private fun requestPermissions() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            //if user already granted any of the permission
             isLocationPermissionGranted=ContextCompat.checkSelfPermission(
                 this,
                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -48,18 +49,15 @@ class MainActivity : AppCompatActivity(){
             ) == PackageManager.PERMISSION_GRANTED
 
 
+            val permissionsNeeded= mutableListOf<String>()
+            if(!isCameraPermissionGranted)
+                permissionsNeeded.add(Manifest.permission.CAMERA)
+            if(!isLocationPermissionGranted)
+                permissionsNeeded.add(Manifest.permission.ACCESS_FINE_LOCATION)
+            if(!isStoragePermissionGranted)
+                permissionsNeeded.add(Manifest.permission.READ_EXTERNAL_STORAGE)
+
             when {
-                //if user already granted the permission
-                ContextCompat.checkSelfPermission(
-                    this,
-                    Manifest.permission.CAMERA
-                ) == PackageManager.PERMISSION_GRANTED -> {
-                    Toast.makeText(
-                        this,
-                        "you have already granted this permission",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
                 //if user already denied the permission once
                 ActivityCompat.shouldShowRequestPermissionRationale(
                     this,
