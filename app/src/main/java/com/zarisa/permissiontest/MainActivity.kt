@@ -80,6 +80,11 @@ class MainActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissionsRes
 //                        Snackbar.LENGTH_LONG
 //                    ).show()
                 }
+                else -> {
+                    requestPermissionLauncher.launch(
+                        Manifest.permission.CAMERA,
+                    )
+                }
             }
         }
     }
