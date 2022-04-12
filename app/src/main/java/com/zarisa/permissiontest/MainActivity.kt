@@ -7,6 +7,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
@@ -16,25 +17,8 @@ import com.zarisa.permissiontest.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(){
     lateinit var binding: ActivityMainBinding
-    private val requestPermissionLauncher =
-        registerForActivityResult(
-            ActivityResultContracts.RequestPermission()
-        ) { isGranted: Boolean ->
-            if (isGranted) {
-                Toast.makeText(
-                    this,
-                    "you granted this permission",
-                    Toast.LENGTH_SHORT
-                ).show()
-                continueActions()
-            } else {
-                Toast.makeText(
-                    this,
-                    "you denied this permission",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        }
+    private lateinit var requestPermissionLauncher :ActivityResultLauncher<String>
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +28,7 @@ class MainActivity : AppCompatActivity(){
     }
 
     private fun initViews() {
-        binding.buttonCamera.setOnClickListener { requestPermissions() }
+        binding.buttonAccess.setOnClickListener { requestPermissions() }
     }
     private fun continueActions() {
         Toast.makeText(
