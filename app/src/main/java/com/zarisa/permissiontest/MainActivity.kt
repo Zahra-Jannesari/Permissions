@@ -14,7 +14,7 @@ import androidx.core.content.ContextCompat
 import com.zarisa.permissiontest.databinding.ActivityMainBinding
 
 
-class MainActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissionsResultCallback {
+class MainActivity : AppCompatActivity(){
     lateinit var binding: ActivityMainBinding
     private val requestPermissionLauncher =
         registerForActivityResult(
