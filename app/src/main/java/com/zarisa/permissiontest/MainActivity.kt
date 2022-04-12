@@ -26,6 +26,11 @@ class MainActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        requestPermissionLauncher =registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()){ permissions->
+            isLocationPermissionGranted=permissions[Manifest.permission.ACCESS_FINE_LOCATION]?:isLocationPermissionGranted
+            isCameraPermissionGranted=permissions[Manifest.permission.CAMERA]?:isCameraPermissionGranted
+            isStoragePermissionGranted=permissions[Manifest.permission.READ_EXTERNAL_STORAGE]?:isStoragePermissionGranted
+        }
         initViews()
     }
 
@@ -60,40 +65,7 @@ class MainActivity : AppCompatActivity(){
             if(permissionsNeeded.isNotEmpty()){
                 requestPermissionLauncher.launch(permissionsNeeded.toTypedArray())
             }
-            when {
-                //if user already denied the permission once
-                ActivityCompat.shouldShowRequestPermissionRationale(
-                    this,
-                    Manifest.permission.CAMERA
-                ) -> {
-                    //you can show rational massage in any form you want
-                    showRationDialog()
-//                    Snackbar.make(
-//                        binding.buttonCamera,
-//                        getString(R.string.permission_required),
-//                        Snackbar.LENGTH_LONG
-//                    ).show()
-                }
-                else -> {
-                    requestPermissionLauncher.launch(
-                        Manifest.permission.CAMERA,
-                    )
-                }
-            }
         }
-    }
-    private fun showRationDialog() {
-        val builder= AlertDialog.Builder(this)
-        builder.apply {
-            setMessage(R.string.permission_required)
-            setTitle("permission required")
-            setPositiveButton("ok"){dialog,which->
-                requestPermissionLauncher.launch(
-                    Manifest.permission.CAMERA,
-                )
-            }
-        }
-        builder.create().show()
     }
 }
 
