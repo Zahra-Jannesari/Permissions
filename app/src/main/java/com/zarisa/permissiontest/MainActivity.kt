@@ -15,6 +15,8 @@ import com.zarisa.permissiontest.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity(){
+    val READ_EXTERNAL_STORAGE_RQ=1
+    val USE_CAMERA_RQ=2
     lateinit var binding: ActivityMainBinding
     private val requestPermissionLauncher =
         registerForActivityResult(
