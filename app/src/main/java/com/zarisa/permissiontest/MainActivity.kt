@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissionsRes
                     "you granted this permission",
                     Toast.LENGTH_SHORT
                 ).show()
-
+                continueActions()
             } else {
                 Toast.makeText(
                     this,
@@ -41,7 +41,13 @@ class MainActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissionsRes
     private fun initViews() {
         binding.buttonCamera.setOnClickListener { requestPermissions() }
     }
-
+    private fun continueActions() {
+        Toast.makeText(
+            this,
+            "continueActions",
+            Toast.LENGTH_SHORT
+        ).show()
+    }
 
 }
 
