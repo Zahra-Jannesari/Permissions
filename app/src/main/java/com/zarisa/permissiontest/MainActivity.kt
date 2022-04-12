@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.zarisa.permissiontest.databinding.ActivityMainBinding
@@ -87,6 +88,19 @@ class MainActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissionsRes
                 }
             }
         }
+    }
+    private fun showRationDialog() {
+        val builder= AlertDialog.Builder(this)
+        builder.apply {
+            setMessage(R.string.permission_required)
+            setTitle("permission required")
+            setPositiveButton("ok"){dialog,which->
+                requestPermissionLauncher.launch(
+                    Manifest.permission.CAMERA,
+                )
+            }
+        }
+        builder.create().show()
     }
 }
 
