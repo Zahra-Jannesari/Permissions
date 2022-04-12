@@ -81,7 +81,11 @@ class MainActivity : AppCompatActivity() {
     private fun showRationDialog(permission: String, name: String, requestCode: Int) {
         val builder = AlertDialog.Builder(this)
         builder.apply {
-            setMessage(R.string.permission_required)
+            setMessage(when(name){
+                "camera"->R.string.permission_required_camera
+                else->R.string.permission_required_media
+            }
+                )
             setTitle("permission required")
             setPositiveButton("ok") { dialog, which ->
                 ActivityCompat.requestPermissions(

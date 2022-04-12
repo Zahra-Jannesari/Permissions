@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">PermissionTest</string>
-    <string name="permission_required">we use camera to scan text.</string>
+    <string name="permission_required_camera">we use camera to scan text.</string>
+    <string name="permission_required_media">we use media to extract text.</string>
 </resources>
