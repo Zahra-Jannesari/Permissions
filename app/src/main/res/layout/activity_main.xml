@@ -6,37 +6,26 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/button_camera"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="take a new picture"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.601" />
-
     <ImageButton
         android:id="@+id/button_useSystemCamera"
         android:layout_width="50dp"
         android:layout_height="61dp"
-        android:layout_marginStart="8dp"
         android:src="@drawable/ic_baseline_photo_camera_24"
-        app:layout_constraintBottom_toBottomOf="@+id/button_camera"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button_camera"
-        app:layout_constraintTop_toTopOf="@+id/button_camera" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/button_camera"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.233"
         tools:srcCompat="@tools:sample/avatars" />
 
 
